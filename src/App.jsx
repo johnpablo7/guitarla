@@ -1,12 +1,16 @@
 import Header from './components/Header';
 import Guitar from './components/Guitar';
 import { db } from './data/db';
-// import { useState } from 'react';
+import { useState } from 'react';
 
 function App() {
-  // const [data, setData] = useState(db);
+  const [data, setData] = useState(db);
+  const [cart, setCart] = useState([]);
 
-  console.log(db);
+  function addToCart(item) {
+    setCart((prevCart) => [...prevCart, item]);
+  }
+
   return (
     <>
       <Header />
@@ -15,7 +19,14 @@ function App() {
         <h2 className='text-center'>Nuestra Colección</h2>
 
         <div className='row mt-5'>
-          <Guitar />
+          {data.map((guitar) => (
+            <Guitar
+              key={guitar.id}
+              guitar={guitar}
+              setCart={setCart}
+              addToCart={addToCart}
+            />
+          ))}
         </div>
       </main>
 
