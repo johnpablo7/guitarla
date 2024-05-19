@@ -4,8 +4,13 @@ import { db } from './data/db';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [data, setData] = useState(db);
-  const [cart, setCart] = useState([]);
+  const initialCart = () => {
+    const localStorageCart = localStorage.getItem('cart');
+    return localStorageCart ? JSON.parse(localStorageCart) : [];
+  };
+
+  const [data] = useState(db);
+  const [cart, setCart] = useState(initialCart);
 
   const MIN_ITEMS = 1;
   const MAX_ITEMS = 5;
